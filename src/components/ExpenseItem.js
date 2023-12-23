@@ -1,13 +1,18 @@
+import './ExpenseItem.css';
+
 function ExpenseItem (){
-    return ( <div>
-                <div>
-                    <h2>Expense Items</h2>
-                </div>
-                <div>
-                    <p>Food Rs 10</p>
-                    <p>Petrol Rs 100</p>
-                    <p>Movies Rs 200</p>
-                </div>
+    const expenseDate = new Date(2023, 13, 23);
+    const expenseItem = 'Food';
+    const expenseAmount = 10;
+    const locationOfExpenditure = 'Pune'
+    return ( 
+        <div className='expense-item'>
+            <div>{expenseDate.toISOString()}</div>
+            <div className='expense-item__description'>
+                <h2>{expenseItem}</h2>
+                <div className='expense-item__description'>{locationOfExpenditure}</div>
+                <div className='expense-item__price'>₹ {expenseAmount}</div>
+            </div>    
     </div> )
 };
 
