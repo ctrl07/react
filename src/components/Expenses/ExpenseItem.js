@@ -1,11 +1,12 @@
+import React, { useState } from "react";
 import ExpenseDate from "./ExpenseDate";
 import Card from "../UI/Card";
 import "./ExpenseItem.css";
 
 const ExpenseItem = (props) => {
-  const deleteHandler = (e) => {
-    const parent = e.target.parentElement.parentElement;
-    parent.removeChild(e.target.parentElement);
+  const [amount, setAmount] = useState(props.amount);
+  const clickHandler = () => {
+    setAmount("100");
   };
 
   return (
@@ -14,10 +15,9 @@ const ExpenseItem = (props) => {
       <div className="expense-item__description">
         <h2>{props.title}</h2>
         <div>{props.location}</div>
-        <div className="expense-item__price">₹{props.amount}</div>
+        <div className="expense-item__price">₹{amount}</div>
       </div>
-      <button>Change Title</button>
-      <button onClick={deleteHandler}>Delete</button>
+      <button onClick={clickHandler}>Update</button>
     </Card>
   );
 };
