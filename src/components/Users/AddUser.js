@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
@@ -7,16 +7,20 @@ import classes from "./AddUser.module.css";
 const AddUser = (props) => {
   const nameInputRef = useRef();
   const ageInputRef = useRef();
+  const collegeInputRef = useRef();
+
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
     const enteredUserName = nameInputRef.current.value;
     const enteredUserAge = ageInputRef.current.value;
+    const enteredUserCollege = collegeInputRef.current.value;
 
     if (
       enteredUserName.trim().length === 0 ||
-      enteredUserAge.trim().length === 0
+      enteredUserAge.trim().length === 0 ||
+      enteredUserCollege.trim().length === 0
     ) {
       setError({
         title: "Invalid input",
@@ -31,6 +35,11 @@ const AddUser = (props) => {
       });
       return;
     }
+
+    props.onAddUser(enteredUserName, enteredUserAge, enteredUserCollege);
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
+    collegeInputRef.current.value = "";
   };
 
   const errorHandler = () => {
@@ -38,7 +47,7 @@ const AddUser = (props) => {
   };
 
   return (
-    <div>
+    <>
       {error && (
         <ErrorModal
           title={error.title}
@@ -52,10 +61,12 @@ const AddUser = (props) => {
           <input id="username" type="text" ref={nameInputRef} />
           <label htmlFor="age">Age (Years)</label>
           <input id="age" type="number" ref={ageInputRef} />
+          <label htmlFor="college">College</label>
+          <input id="college" type="text" ref={collegeInputRef} />
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-    </div>
+    </>
   );
 };
 
